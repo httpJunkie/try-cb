@@ -4,7 +4,6 @@ import { IUser,IToken } from "./interfaces";
 import { UtilityService } from "./utility.service";
 import { NarrationService } from "./narration.service";
 import { environment } from '../../environments/environment';
-import { md5 } from './md5';
 import { JwtHelper } from './angular2-jwt';
 import { Router } from '@angular/router'
 
@@ -32,7 +31,7 @@ export class AuthService {
 
 login(email: string, password: string) {
   return new Promise((resolve, reject) => {
-    this.utility.makePostRequest("/api/user/login", [], {"user": email, "password": md5(password)}).then((res: Response) => {
+    this.utility.makePostRequest("/api/user/login", [], {"user": email, "password": password}).then((res: Response) => {
       let result = UtilityService.extractData(res);
       if (result.token && environment.jwtEnabled) {
             try {
